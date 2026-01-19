@@ -120,7 +120,7 @@ En el problema dual de Lagrange, la condición de optimalidad (KKT) nos dice que
 $$w = \sum \alpha_i y_i x_i$$
 La clave es que $\alpha_i$ (el multiplicador de Lagrange) representa la "fuerza" o importancia del punto $x_i$ para definir la frontera.
 * Si un punto está lejos y bien clasificado (seguro), no necesitamos preocuparnos por él, así que su $\alpha_i = 0$.
-* Si un punto está justo en el margen (es difícil), es un **Vector Soporte**, y tendrá $\alpha_i > 0$. Solo estos puntos "sostienen" el hiperplano.
+* Si un punto está justo en el margen (es difícil), es un vector soporte, y tendrá $\alpha_i > 0$. Solo estos puntos "sostienen" el hiperplano.
 
 ### D2. Identificación en Conjunto A
 Mirando nuestros cálculos de la Parte B:
@@ -175,6 +175,7 @@ El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). U
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
 
 
