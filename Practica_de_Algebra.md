@@ -58,11 +58,11 @@ $$\gamma = \frac{1}{||w||_2} = \frac{1}{\sqrt{0.125}} = \sqrt{8} \approx 2.828$$
 
 Calculamos las distancias de los otros puntos al hiperplano: $dist = \frac{|w \cdot x|}{||w||}$:
 
-* **Para $x_2(2,3)$:**
+* Para $x_2(2,3)$:
     $$w \cdot x_2 = 0.25(2) + 0.25(3) = 0.5 + 0.75 = 1.25$$
     $$dist = \frac{1.25}{0.3536} \approx 3.535$$
-* **Para $x_3(3,2)$:** Simétrico a $x_2$, misma distancia $\approx 3.535$.
-* **Para $x_5(-3,-2)$:**
+* Para $x_3(3,2)$: Simétrico a $x_2$, misma distancia $\approx 3.535$.
+* Para $x_5(-3,-2)$:
     $$w \cdot x_5 = 0.25(-3) + 0.25(-2) = -0.75 - 0.5 = -1.25$$
     $$dist = \frac{|-1.25|}{0.3536} \approx 3.535$$
 
@@ -175,6 +175,7 @@ El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). U
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
 
 
