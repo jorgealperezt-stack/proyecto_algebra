@@ -25,7 +25,7 @@ Comparamos dos ideas clave:
 * **Proyección ($\hat{y} = Py$):** Busca minimizar la distancia vertical de los puntos a la recta. Intenta "pasar por el medio" de los datos para explicarlos.
 * **Maximizar Margen ($\gamma = 1/||w||_2$):** El SVM busca la via más ancha posible que separe las clases. Mientras la proyección busca minimizar el error de representar los datos fielmente, el SVM busca maximizar la capacidad de generalización o separación, ignorando la distribución de la clase.
 
-**Conclusión:** La proyección comprime la información en un subespacio, mientras que el SVM busca una dirección en el subespacio que garantice la máxima confianza geométrica.
+*En conclusión la proyección comprime la información en un subespacio, mientras que el SVM busca una dirección en el subespacio que garantice la máxima confianza geométrica.
 
 ---
 
@@ -137,7 +137,7 @@ Comparamos producto escalar vs Kernel para un par de clases opuestas ($x_1$ vs $
 * Producto escalar (lineal): $x_1 \cdot x_4 = -8$. (Indica oposición).
 * Kernel: $K_p(x_1, x_4) = (-8 + 1)^2 = (-7)^2 = 49$.
 
-**Análisis:**El kernel proyecta los datos a un espacio de mayor dimensión donde la similitud se mide diferente. Al elevar al cuadrado, el kernel transforma el producto escalar negativo en una alta similitud positiva en el espacio de características, lo cuál no es necesario dado que los datos son separables linealmente. Sin embargo, en este caso simple separable, el kernel polinomial de grado 2 podría estar complicando innecesariamente la geometría simple que ya teníamos con el producto escalar negativo.
+**Análisis:** El kernel proyecta los datos a un espacio de mayor dimensión donde la similitud se mide diferente. Al elevar al cuadrado, el kernel transforma el producto escalar negativo en una alta similitud positiva en el espacio de características, lo cuál no es necesario dado que los datos son separables linealmente. Sin embargo, en este caso simple separable, el kernel polinomial de grado 2 podría estar complicando innecesariamente la geometría simple que ya teníamos con el producto escalar negativo.
 
 ### E2. Kernel RBF en Conjunto B (Casi separable)
 Fórmula: $K_r(x, z) = \exp(-\frac{||x-z||^2}{2})$.
@@ -176,6 +176,7 @@ El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). U
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
 
 
