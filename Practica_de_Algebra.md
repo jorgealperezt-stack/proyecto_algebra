@@ -13,17 +13,17 @@
 ### A1. Los cuatro subespacios fundamentales
 Para empezar analizamos la matriz de datos $X \in \mathbb{R}^{n \times d}$ (donde $n$ son las muestras y $d$ las características):
 
-1.  **$Im(X)$:** Es el espacio generado por las columnas de X. En clasificación, representa el espacio donde "viven" las combinaciones lineales de nuestras variables.
+1.  **$Im(X)$:** Espacio de columnas. En clasificación, representa el espacio generado por las caracteristicas de los datos.
 2.  **$Ker(X)$:** Son los vectores $v$ tales que $Xv = 0$. Si hay un vector aquí, significa que hay redundancia en las características.
-3.  **$Im(X^\top)$:** Aquí viven las filas de nuestros datos. **Importante:** El vector de pesos $w$ del SVM vive en este espacio (o en $\mathbb{R}^d$), ya que $w$ actúa sobre las muestras $x$.
-4.  **$Ker(X^\top)$:** Es el complemento ortogonal del espacio de columnas. En regresión, aquí es donde vive el "error" que no podemos explicar linealmente.
+3.  **$Im(X^\top)$:** Aquí se presentan las filas de nuestros datos. **Importante:** El vector de pesos $w$ del SVM se encuentra en este espacio (o en $\mathbb{R}^d$), ya que $w$ actúa sobre las muestras $x$.
+4.  **$Ker(X^\top)$:** Es el complemento ortogonal del espacio de columnas. En regresión, aquí es donde muestra el "error" que no podemos explicar linealmente.
 
 **Relación con clasificación lineal:** Nuestro hiperplano está definido por un vector $w$. Para que $w$ clasifique bien, debe tener una proyección no nula sobre las direcciones donde varían los datos ($Im(X^\top)$). Si $w$ estuviera en $Ker(X)$, el producto $Xw$ sería 0 para todos los puntos.
 
 ### A2. Proyección vs. Margen
 Comparamos dos ideas clave:
 * **Proyección ($\hat{y} = Py$):** Busca minimizar la distancia vertical de los puntos a la recta. Intenta "pasar por el medio" de los datos para explicarlos.
-* **Maximizar Margen ($\gamma = 1/||w||_2$):** El SVM busca la "calle" más ancha posible que separe las clases. No le importa "explicar" la nube de puntos, sino encontrar la frontera que esté lo más lejos posible de los puntos más difíciles.
+* **Maximizar Margen ($\gamma = 1/||w||_2$):** El SVM busca la via más ancha posible que separe las clases. Mientras la proyección busca minimizar el error de representar los datos fielmente, el SVM busca maximizar la capacidad de generalización o separación, ignorando la distribución de la clase.
 
 **Conclusión:** La proyección comprime la información en un subespacio, mientras que el SVM busca una dirección en el subespacio que garantice la máxima seguridad geométrica.
 
@@ -45,7 +45,7 @@ $$2a + 2a = 1 \implies 4a = 1 \implies a = 0.25$$
 Por lo tanto, nuestro vector de pesos es:
 $$w = (0.25, 0.25)$$
 
-**Verificación rápida con un punto de la otra clase ($x_4 = (-2, -2), y=-1$):**
+**Comprobamos con x_4 ($x_4 = (-2, -2), y=-1$):**
 $$(-1) \cdot ((0.25, 0.25) \cdot (-2, -2)) = (-1) \cdot (-0.5 - 0.5) = (-1)(-1) = 1$$
 Se cumple la igualdad ($\ge 1$).
 
@@ -76,7 +76,7 @@ Sea $n = \frac{w}{||w||}$.
 El valor $y_i(n \cdot x_i)$ nos dice cuántas veces "cabe" el margen hasta el punto.
 Para $x_1$, el valor es exactamente $\gamma$ (el borde de la carretera).
 Para $x_2$, el valor es mayor que $\gamma$.
-**Razonamiento:** Cuanto mayor sea este valor respecto a $\gamma$, mayor es nuestra "confianza geométrica" de que el punto está bien clasificado y lejos del peligro (la frontera de decisión).
+**Razonamiento:** Cuanto mayor sea este valor respecto a $\gamma$, un valor mayor implica que el punto está más alejado del hiperplano que los vectores soporte, su clasificación es más robusta ante posibles pertubaciones.
 
 ---
 
@@ -109,7 +109,7 @@ $$
 
 ### C2. Interpretación
 Que los productos intra-clase sean positivos significa que los vectores apuntan en la misma dirección (ángulo agudo). Que los productos entre clases sean negativos significa que apuntan en direcciones opuestas (ángulo obtuso).
-Esto es el **escenario ideal** para un clasificador lineal: las clases están geométricamente opuestas respecto al origen, haciendo trivial pasar un plano por el medio. Si hubiera productos positivos grandes entre clases, significaría que las clases están mezcladas o solapadas, dificultando la separación lineal.
+Valores intraclase-positivos y entre-clase negativos indican que los vectores de la misma clase forman ángulos agudos entre sí y obtuso con la clase opuesta, facilitando la separación lineal. Si hubiera productos positivos grandes entre clases, significaría que las clases están mezcladas o solapadas, dificultando la separación lineal.
 
 ---
 
@@ -137,8 +137,7 @@ Comparamos producto escalar vs Kernel para un par de clases opuestas ($x_1$ vs $
 * Producto escalar (lineal): $x_1 \cdot x_4 = -8$. (Indica oposición).
 * Kernel: $K_p(x_1, x_4) = (-8 + 1)^2 = (-7)^2 = 49$.
 
-**Análisis:**
-¡El valor se vuelve positivo y muy grande! Esto parece contraintuitivo al principio, pero lo que hace el kernel es proyectar los datos a un espacio de mayor dimensión donde la "similitud" se mide diferente. Al elevar al cuadrado, estamos curvando el espacio. Sin embargo, en este caso simple separable, el kernel polinomial de grado 2 podría estar complicando innecesariamente la geometría simple que ya teníamos con el producto escalar negativo.
+**Análisis:**El kernel proyecta los datos a un espacio de mayor dimensión donde la similitud se mide diferente. Al elevar al cuadrado, el kernel transforma el producto escalar negativo en una alta similitud positiva en el espacio de características, lo cuál no es necesario dado que los datos son separables linealmente. Sin embargo, en este caso simple separable, el kernel polinomial de grado 2 podría estar complicando innecesariamente la geometría simple que ya teníamos con el producto escalar negativo.
 
 ### E2. Kernel RBF en Conjunto B (Casi separable)
 Fórmula: $K_r(x, z) = \exp(-\frac{||x-z||^2}{2})$.
@@ -154,7 +153,7 @@ Tenemos Clase +1: $u_1(1,2)$, Clase -1: $v_1(0.5, 0.5)$ y $v_2(2,2)$.
 
 **Comentario:**
 El RBF mide proximidad local. $u_1$ tiene una "afinidad" (kernel) más alta con $v_2$ (0.606) que con $v_1$ (0.286) simplemente porque está más cerca geométricamente, aunque sean de distinta clase.
-Sin embargo, el RBF ayuda a separar conjuntos no lineales creando "burbujas" o regiones locales alrededor de los puntos. En el Conjunto B, el RBF permitiría aislar las clases creando una frontera curva y ajustada, cosa que un plano rígido no puede hacer bien si los datos están intercalados.
+Sin embargo, el RBF se basa en la distancia euclidea. Aunque u_1 y v_1 son de clases distintas , el kernel da un valor bajo. Con v_2 , aunque es de otra clase, la similitud es mayor por cercanía geométrica. El RBF permite generar fronteras de decisión no lineales que se ajustan, algo imposible para un separador lineal rígido. En el Conjunto B, el RBF permitiría aislar las clases creando una frontera curva y ajustada, cosa que un plano rígido no puede hacer bien si los datos están intercalados.
 
 ---
 
@@ -168,13 +167,14 @@ $$w \cdot x_7 + b = 0.25(0.2) + 0.25(0.2) = 0.05 + 0.05 = +0.1$$
 **Evaluación:**
 * El clasificador predice signo **positivo** ($+0.1$).
 * La etiqueta real es **negativa** ($-1$).
-* **Conclusión:** Hay una violación flagrante. No solo viola el margen, el punto está en el lado equivocado del hiperplano (error de clasificación).
+* **Conclusión:** El punto x7 tiene etiqueta -1 pero el modelo predice +0.1. Es un error de clasificación y viola el margen.
 
 ### F2. Efecto del parámetro C
-El parámetro $C$ controla cuánto nos "duele" cometer errores ($\sum \xi_i$).
+El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). Un $C$ muy alto forzará al modelo a intentar clasificar bien x_7, probablemente reduciendo el margen global y arriesgando overfitting. Un  $C$ bajo permitirá que x_7 sea mal clasificado a cambio de mantener un ||w||pequeño (margen amplio) para el resto de datos.
 
 1.  **Si aumentamos C mucho (C $\to \infty$):**
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
