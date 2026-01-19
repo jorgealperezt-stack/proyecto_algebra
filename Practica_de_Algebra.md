@@ -68,7 +68,7 @@ Calculamos las distancias de los otros puntos al hiperplano: $dist = \frac{|w \c
 
 **Candidatos a Vectores Soporte:**
 Los vectores soporte son los que están *exactamente* en el margen (distancia mínima).
-* $x_1$ y $x_4$ tienen distancia geométrica $\approx 2.828$ (cumplen la ecuación con $=1$). **Estos son los soportes.**
+* $x_1$ y $x_4$ tienen distancia geométrica $\approx 2.828$ (cumplen la ecuación con $=1$). Estos son los soportes.
 * $x_2, x_3, x_5, x_6$ están más lejos ($> 2.828$), por lo que no definen el margen.
 
 ### B3. Normal Unitario y Confianza
@@ -175,6 +175,7 @@ El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). U
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
 
 
