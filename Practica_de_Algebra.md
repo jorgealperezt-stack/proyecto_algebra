@@ -45,7 +45,7 @@ $$2a + 2a = 1 \implies 4a = 1 \implies a = 0.25$$
 Por lo tanto, nuestro vector de pesos es:
 $$w = (0.25, 0.25)$$
 
-**Comprobamos con x_4 ($x_4 = (-2, -2), y=-1$):**
+Comprobamos con x_4 ($x_4 = (-2, -2), y=-1$):
 $$(-1) \cdot ((0.25, 0.25) \cdot (-2, -2)) = (-1) \cdot (-0.5 - 0.5) = (-1)(-1) = 1$$
 Se cumple la igualdad ($\ge 1$).
 
@@ -175,6 +175,7 @@ El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). U
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
 
 
