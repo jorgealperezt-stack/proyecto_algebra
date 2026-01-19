@@ -13,10 +13,10 @@
 ### A1. Los cuatro subespacios fundamentales
 Para empezar analizamos la matriz de datos $X \in \mathbb{R}^{n \times d}$ (donde $n$ son las muestras y $d$ las características):
 
-1.  **$Im(X)$:** Espacio de columnas. En clasificación, representa el espacio generado por las caracteristicas de los datos.
+1.  **$Im(X)$:** Es un espacio de columnas que representa el espacio generado por las caracteristicas de los datos.
 2.  **$Ker(X)$:** Son los vectores $v$ tales que $Xv = 0$. Si hay un vector aquí, significa que hay redundancia en las características.
 3.  **$Im(X^\top)$:** Aquí se presentan las filas de nuestros datos. **Importante:** El vector de pesos $w$ del SVM se encuentra en este espacio (o en $\mathbb{R}^d$), ya que $w$ actúa sobre las muestras $x$.
-4.  **$Ker(X^\top)$:** Es el complemento ortogonal del espacio de columnas. En regresión, aquí es donde muestra el "error" que no podemos explicar linealmente.
+4.  **$Ker(X^\top)$:** Es el complemento ortogonal del espacio de columnas. En la regresión, aquí es donde muestra el "error" que no podemos explicar linealmente.
 
 **Relación con clasificación lineal:** Nuestro hiperplano está definido por un vector $w$. Para que $w$ clasifique bien, debe tener una proyección no nula sobre las direcciones donde varían los datos ($Im(X^\top)$). Si $w$ estuviera en $Ker(X)$, el producto $Xw$ sería 0 para todos los puntos.
 
@@ -25,7 +25,7 @@ Comparamos dos ideas clave:
 * **Proyección ($\hat{y} = Py$):** Busca minimizar la distancia vertical de los puntos a la recta. Intenta "pasar por el medio" de los datos para explicarlos.
 * **Maximizar Margen ($\gamma = 1/||w||_2$):** El SVM busca la via más ancha posible que separe las clases. Mientras la proyección busca minimizar el error de representar los datos fielmente, el SVM busca maximizar la capacidad de generalización o separación, ignorando la distribución de la clase.
 
-**Conclusión:** La proyección comprime la información en un subespacio, mientras que el SVM busca una dirección en el subespacio que garantice la máxima seguridad geométrica.
+**Conclusión:** La proyección comprime la información en un subespacio, mientras que el SVM busca una dirección en el subespacio que garantice la máxima confianza geométrica.
 
 ---
 
@@ -90,7 +90,7 @@ Ejemplos:
 * $x_1 \cdot x_4 = 2(-2)+2(-2) = -8$ (Entre clases)
 * $x_1 \cdot x_2 = 2(2)+2(3) = 10$ (Intra clase)
 
-La matriz aproximada (simplificada conceptualmente por bloques):
+La matriz:
 
 $$
 G_A = \begin{pmatrix}
@@ -176,5 +176,6 @@ El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). U
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
 
