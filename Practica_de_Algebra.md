@@ -25,7 +25,7 @@ Comparamos dos ideas clave:
 * **Proyección ($\hat{y} = Py$):** Busca minimizar la distancia vertical de los puntos a la recta. Intenta "pasar por el medio" de los datos para explicarlos.
 * **Maximizar Margen ($\gamma = 1/||w||_2$):** El SVM busca la via más ancha posible que separe las clases. Mientras la proyección busca minimizar el error de representar los datos fielmente, el SVM busca maximizar la capacidad de generalización o separación, ignorando la distribución de la clase.
 
-*En conclusión la proyección comprime la información en un subespacio, mientras que el SVM busca una dirección en el subespacio que garantice la máxima confianza geométrica.
+En conclusión la proyección comprime la información en un subespacio, mientras que el SVM busca una dirección en el subespacio que garantice la máxima confianza geométrica.
 
 ---
 
@@ -176,6 +176,7 @@ El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). U
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
 
 
