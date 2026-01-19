@@ -15,7 +15,7 @@ Para empezar analizamos la matriz de datos $X \in \mathbb{R}^{n \times d}$ (dond
 
 1.  **$Im(X)$:** Es un espacio de columnas que representa el espacio generado por las caracteristicas de los datos.
 2.  **$Ker(X)$:** Son los vectores $v$ tales que $Xv = 0$. Si hay un vector aquí, significa que hay redundancia en las características.
-3.  **$Im(X^\top)$:** Aquí se presentan las filas de nuestros datos. **Importante:** El vector de pesos $w$ del SVM se encuentra en este espacio (o en $\mathbb{R}^d$), ya que $w$ actúa sobre las muestras $x$.
+3.  **$Im(X^\top)$:** Aquí se presentan las filas de nuestros datos. El vector de pesos $w$ del SVM se encuentra en este espacio (o en $\mathbb{R}^d$), ya que $w$ actúa sobre las muestras $x$.
 4.  **$Ker(X^\top)$:** Es el complemento ortogonal del espacio de columnas. En la regresión, aquí es donde muestra el "error" que no podemos explicar linealmente.
 
 **Relación con clasificación lineal:** Nuestro hiperplano está definido por un vector $w$. Para que $w$ clasifique bien, debe tener una proyección no nula sobre las direcciones donde varían los datos ($Im(X^\top)$). Si $w$ estuviera en $Ker(X)$, el producto $Xw$ sería 0 para todos los puntos.
@@ -76,7 +76,7 @@ Sea $n = \frac{w}{||w||}$.
 El valor $y_i(n \cdot x_i)$ nos dice cuántas veces "cabe" el margen hasta el punto.
 Para $x_1$, el valor es exactamente $\gamma$ (el borde de la carretera).
 Para $x_2$, el valor es mayor que $\gamma$.
-**Razonamiento:** Cuanto mayor sea este valor respecto a $\gamma$, un valor mayor implica que el punto está más alejado del hiperplano que los vectores soporte, su clasificación es más robusta ante posibles pertubaciones.
+Cuanto mayor sea este valor respecto a $\gamma$, un valor mayor implica que el punto está más alejado del hiperplano que los vectores soporte, su clasificación es más robusta ante posibles pertubaciones.
 
 ---
 
@@ -137,7 +137,7 @@ Comparamos producto escalar vs Kernel para un par de clases opuestas ($x_1$ vs $
 * Producto escalar (lineal): $x_1 \cdot x_4 = -8$. (Indica oposición).
 * Kernel: $K_p(x_1, x_4) = (-8 + 1)^2 = (-7)^2 = 49$.
 
-**Análisis:** El kernel proyecta los datos a un espacio de mayor dimensión donde la similitud se mide diferente. Al elevar al cuadrado, el kernel transforma el producto escalar negativo en una alta similitud positiva en el espacio de características, lo cuál no es necesario dado que los datos son separables linealmente. Sin embargo, en este caso simple separable, el kernel polinomial de grado 2 podría estar complicando innecesariamente la geometría simple que ya teníamos con el producto escalar negativo.
+El kernel proyecta los datos a un espacio de mayor dimensión donde la similitud se mide diferente. Al elevar al cuadrado, el kernel transforma el producto escalar negativo en una alta similitud positiva en el espacio de características, lo cuál no es necesario dado que los datos son separables linealmente. Sin embargo, en este caso simple separable, el kernel polinomial de grado 2 podría estar complicando innecesariamente la geometría simple que ya teníamos con el producto escalar negativo.
 
 ### E2. Kernel RBF en Conjunto B (Casi separable)
 Fórmula: $K_r(x, z) = \exp(-\frac{||x-z||^2}{2})$.
@@ -151,7 +151,6 @@ Tenemos Clase +1: $u_1(1,2)$, Clase -1: $v_1(0.5, 0.5)$ y $v_2(2,2)$.
     $||u_1 - v_2||^2 = (1-2)^2 + (2-2)^2 = 1 + 0 = 1$.
     $K_r(u_1, v_2) = e^{-0.5} \approx 0.606$.
 
-**Comentario:**
 El RBF mide proximidad local. $u_1$ tiene una "afinidad" (kernel) más alta con $v_2$ (0.606) que con $v_1$ (0.286) simplemente porque está más cerca geométricamente, aunque sean de distinta clase.
 Sin embargo, el RBF se basa en la distancia euclidea. Aunque u_1 y v_1 son de clases distintas , el kernel da un valor bajo. Con v_2 , aunque es de otra clase, la similitud es mayor por cercanía geométrica. El RBF permite generar fronteras de decisión no lineales que se ajustan, algo imposible para un separador lineal rígido. En el Conjunto B, el RBF permitiría aislar las clases creando una frontera curva y ajustada, cosa que un plano rígido no puede hacer bien si los datos están intercalados.
 
@@ -176,6 +175,7 @@ El parámetro $C$ penaliza la suma de las variables de holgura ($\sum \xi_i$). U
     El algoritmo intentará a toda costa clasificar bien a $x_7$. Para hacerlo, tendrá que rotar o mover el hiperplano drásticamente, probablemente reduciendo mucho el margen $\gamma$ para los demás puntos. El modelo se vuelve muy sensible al ruido (overfitting).
 2.  **Si C es bajo:**
     El algoritmo quiere mantener un margen ancho para la mayoría de los datos, aceptando que $x_7$ es un error. La norma $||w||_2$ se mantiene pequeña (margen grande).
+
 
 
 
